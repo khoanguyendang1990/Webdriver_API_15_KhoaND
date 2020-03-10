@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -19,6 +20,7 @@ public class Topic01_CheckEnvironment {
 	// Login Page Url matching
 	String loginPageUrl = driver.getCurrentUrl();
 	Assert.assertEquals(loginPageUrl, "http://demo.guru99.com/v4/");
+	
 	}
 	@Test
 	public void TC_02_ValidatePageTitle() {
@@ -34,9 +36,13 @@ public class Topic01_CheckEnvironment {
 
 	@BeforeClass
 	public void beforeClass() {
-		//driver = new FirefoxDriver();
-		System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
-		driver = new ChromeDriver();
+		String rootfolder = System.getProperty("user.dir");
+		System.setProperty("webdriver.gecko.driver", ".\\drivers\\geckodriver.exe");
+		System.setProperty(FirefoxDriver.SystemProperty.DRIVER_USE_MARIONETTE,"true");
+		System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE,rootfolder+"\\firefoxlogs.txt");
+		driver = new FirefoxDriver();
+//		System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
+//		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		driver.get("http://demo.guru99.com/v4/");
