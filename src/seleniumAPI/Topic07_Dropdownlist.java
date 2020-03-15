@@ -74,6 +74,7 @@ public class Topic07_Dropdownlist {
 //		System.out.println("============Done TC_02_DropDownList====================");
 //	}
 
+<<<<<<< HEAD
 //	@Test
 //	public void TC_04_CustomerDropdownlist() throws InterruptedException {
 //		System.out.println("============TC_04_CustomerDropdownlist============");
@@ -182,6 +183,77 @@ public class Topic07_Dropdownlist {
 		for (WebElement item : elements) {
 			if (item.getText().equals(expectedItem)) {
 				System.out.println(item.getText());
+=======
+	@Test
+	public void TC_04_CustomerDropdownlist() throws InterruptedException {
+		System.out.println("============TC_04_CustomerDropdownlist============");
+		System.out.println("Step 1: Truy cập vào trang http://jqueryui.com/resources/demos/selectmenu/default.html");
+		driver.get("http://jqueryui.com/resources/demos/selectmenu/default.html");
+		
+		System.out.println("Step 2: select 19 in dropdownlist");
+		selectItemInCustomDropdownJS("//span[@id='number-button']", "//ul[@id='number-menu']/li/div", "19");
+		
+		System.out.println("Step 3: Kiểm tra 19 được chọn thành công");
+		Assert.assertTrue(driver.findElement(By.xpath("//span[@id='number-button']/span[@class='ui-selectmenu-text' and text()='19']")).isDisplayed());
+		
+		System.out.println("============Done TC_04_CustomerDropdownlist====================");
+	}
+//
+//	@Test
+//	public void TC_03_VerifyElementIsSelected() {
+//		System.out.println("============TC_03_VerifyElementIsSelected============");
+//		System.out.println("Step 1: Truy cập vào trang https://automationfc.github.io/basic-form/index.html");
+//		driver.get("https://automationfc.github.io/basic-form/index.html");
+//
+//		System.out.println("Step 2: Click Age under 18, Interest DEvelopment hiển thị trên trang");
+//		driver.findElement(By.xpath("//input[@id='under_18']")).click();
+//		driver.findElement(By.xpath("//input[@id='development']")).click();
+//		
+//		System.out.println("Step 3: check Element step 2 is selected");
+//		assertTrue(driver.findElement(By.xpath("//input[@id='under_18']")).isSelected());
+//		assertTrue(driver.findElement(By.xpath("//input[@id='development']")).isSelected());
+//		
+//		System.out.println("Step 4: Click Interest DEvelopment hiển thị trên trang");
+//		driver.findElement(By.xpath("//input[@id='development']")).click();
+//		
+//		
+//		System.out.println("Step 5: check Element step 2 is selected");
+//		assertFalse(driver.findElement(By.xpath("//input[@id='development']")).isSelected());
+//		System.out.println("============Done TC_03_VerifyElementIsSelected====================");
+//	}
+
+	public void selectItemInCustomDropdownJS(String parentLocator, String allItemLocator, String expectedItem)
+			throws InterruptedException {
+		element = driver.findElement(By.xpath(parentLocator));
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView(true);", element);
+		Thread.sleep(1000);
+		js.executeScript("arguments[0].click();", element);
+		Thread.sleep(1000);
+		waitExplicit.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(allItemLocator)));
+		elements = driver.findElements(By.xpath(allItemLocator));
+
+		for (WebElement item : elements) {
+			if (item.getText().equals(expectedItem)) {
+				js.executeScript("arguments[0].scrollIntoView(true);", item);
+				Thread.sleep(1000);
+				item.click();
+				Thread.sleep(2000);
+				break;
+			}
+		}
+	}
+	
+	public void selectItemInCustomDropdown(String parentLocator, String allItemLocator, String expectedItem)
+			throws InterruptedException {
+		element = driver.findElement(By.xpath(parentLocator));
+		System.out.println(element);
+		element.click();
+		elements = driver.findElements(By.xpath(allItemLocator));
+		waitExplicit.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(allItemLocator)));
+		for (WebElement item : elements) {
+			if (item.getText().equals(expectedItem)) {
+>>>>>>> branch 'master' of https://github.com/khoanguyendang1990/Webdriver_API_15_KhoaND.git
 				item.click();
 				break;
 			}
